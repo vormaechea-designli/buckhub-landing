@@ -211,6 +211,17 @@
     const errorEl = widget.querySelector<HTMLElement>("[data-fw-error]")!;
     const openBtn = widget.querySelector<HTMLButtonElement>("[data-fw-open]")!;
     const closeBtn = widget.querySelector<HTMLButtonElement>("[data-fw-close]")!;
+    const submitBtn = form.querySelector<HTMLButtonElement>(".fw-submit")!;
+
+    // Return the panel to a fresh, submittable state.
+    const resetForm = () => {
+      form.reset();
+      form.hidden = false;
+      successEl.hidden = true;
+      errorEl.hidden = true;
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send";
+    };
 
     const open = () => {
       panel.hidden = false;
@@ -218,6 +229,8 @@
     };
     const close = () => {
       panel.hidden = true;
+      // If we're closing after a successful submit, reset so the next open is fresh.
+      if (!successEl.hidden) resetForm();
     };
 
     openBtn.addEventListener("click", () =>
@@ -244,7 +257,6 @@
         return;
       }
 
-      const submitBtn = form.querySelector<HTMLButtonElement>(".fw-submit")!;
       submitBtn.disabled = true;
       submitBtn.textContent = "Sending…";
 
