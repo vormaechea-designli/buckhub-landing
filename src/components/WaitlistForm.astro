@@ -1,0 +1,258 @@
+---
+interface Props {
+  instanceId: string;
+  /** Visual theme: "light" (on paper) or "dark" (on pine panel) */
+  theme?: "light" | "dark";
+}
+const { instanceId, theme = "light" } = Astro.props;
+---
+
+<div class="waitlist" data-theme={theme} data-instance={instanceId}>
+  <form class="waitlist-form" data-waitlist novalidate>
+    <div class="field">
+      <label for={`first-${instanceId}`}>First name</label>
+      <input
+        id={`first-${instanceId}`}
+        name="first_name"
+        type="text"
+        autocomplete="given-name"
+        placeholder="Jess"
+        required
+      />
+    </div>
+
+    <div class="field">
+      <label for={`email-${instanceId}`}>Email</label>
+      <input
+        id={`email-${instanceId}`}
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="you@ranch.com"
+        required
+      />
+    </div>
+
+    <div class="field">
+      <label for={`problem-${instanceId}`}>
+        Biggest headache right now? <span class="optional">(optional)</span>
+      </label>
+      <input
+        id={`problem-${instanceId}`}
+        name="top_problem"
+        type="text"
+        placeholder="e.g. tracking media across 40 head"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary waitlist-submit">
+      Join the waitlist
+    </button>
+    <p class="form-error" data-error hidden role="alert"></p>
+    <p class="form-fineprint">No spam. We'll only email about Buck Hub.</p>
+  </form>
+
+  <div class="waitlist-success" data-success hidden>
+    <div class="check" aria-hidden="true">✓</div>
+    <p class="success-title">You're on the list.</p>
+    <p class="success-body">We'll be in touch.</p>
+  </div>
+</div>
+
+<style>
+  .waitlist {
+    width: 100%;
+  }
+  .field {
+    margin-bottom: 1rem;
+  }
+  label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+  .optional {
+    font-weight: 400;
+    color: var(--ink-muted);
+  }
+  input {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid #d9d6cd;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--ink);
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  input::placeholder {
+    color: #a7a59c;
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--pine);
+    box-shadow: 0 0 0 3px var(--pine-soft);
+  }
+  .waitlist-submit {
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+  .form-error {
+    color: #b3261e;
+    font-size: 0.88rem;
+    margin-top: 0.75rem;
+  }
+  .form-fineprint {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+
+  /* Success state */
+  .waitlist-success {
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+  .check {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1rem;
+    border-radius: 999px;
+    background: var(--sage);
+    color: var(--pine);
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+  }
+  .success-title {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .success-body {
+    color: var(--ink-muted);
+  }
+
+  /* Dark theme (form sits on a pine panel) */
+  .waitlist[data-theme="dark"] label,
+  .waitlist[data-theme="dark"] .success-title,
+  .waitlist[data-theme="dark"] .success-body {
+    color: var(--paper);
+  }
+  .waitlist[data-theme="dark"] .optional,
+  .waitlist[data-theme="dark"] .form-fineprint {
+    color: var(--cream);
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = "buckhub_waitlisted";
+  const SYNC_EVENT = "waitlist:signed_up";
+
+  function showSuccess(root: Element) {
+    const form = root.querySelector<HTMLElement>("[data-waitlist]");
+    const success = root.querySelector<HTMLElement>("[data-success]");
+    if (form) form.hidden = true;
+    if (success) success.hidden = false;
+  }
+
+  function getUtmSource(): string {
+    try {
+      return new URLSearchParams(window.location.search).get("utm_source") || "";
+    } catch {
+      return "";
+    }
+  }
+
+  function isValidEmail(value: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  document.querySelectorAll<HTMLElement>(".waitlist").forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>("[data-waitlist]");
+    const errorEl = root.querySelector<HTMLElement>("[data-error]");
+    if (!form) return;
+
+    // Already signed up on a previous visit?
+    let already = false;
+    try {
+      already = localStorage.getItem(STORAGE_KEY) === "true";
+    } catch {
+      /* localStorage unavailable */
+    }
+    if (already) showSuccess(root);
+
+    // Keep every instance on the page in sync within this page load.
+    document.addEventListener(SYNC_EVENT, () => showSuccess(root));
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (errorEl) errorEl.hidden = true;
+
+      const data = new FormData(form);
+      const firstName = String(data.get("first_name") || "").trim();
+      const email = String(data.get("email") || "").trim();
+      const topProblem = String(data.get("top_problem") || "").trim();
+
+      if (!firstName || !isValidEmail(email)) {
+        if (errorEl) {
+          errorEl.textContent = !firstName
+            ? "Please enter your first name."
+            : "Please enter a valid email address.";
+          errorEl.hidden = false;
+        }
+        return;
+      }
+
+      const source = getUtmSource();
+      const posthog = (window as any).posthog;
+
+      try {
+        if (posthog) {
+          posthog.capture("waitlist_signup_submitted", {
+            first_name: firstName,
+            email,
+            top_problem: topProblem,
+            source,
+          });
+          // Rule 1: email MUST be set as a person property for Workflows.
+          posthog.identify(email, {
+            first_name: firstName,
+            email,
+            waitlisted: true,
+          });
+        }
+
+        try {
+          localStorage.setItem(STORAGE_KEY, "true");
+        } catch {
+          /* ignore */
+        }
+
+        // Sync all instances on this page, then flip this one.
+        document.dispatchEvent(new CustomEvent(SYNC_EVENT));
+        showSuccess(root);
+      } catch (err) {
+        if (posthog) {
+          posthog.capture("waitlist_signup_failed", {
+            email,
+            error: String(err),
+          });
+        }
+        if (errorEl) {
+          errorEl.textContent =
+            "Something went wrong. Please try again in a moment.";
+          errorEl.hidden = false;
+        }
+      }
+    });
+  });
+</script>

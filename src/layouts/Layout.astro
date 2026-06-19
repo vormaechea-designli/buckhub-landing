@@ -1,0 +1,197 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const {
+  title,
+  description = "Buck Hub — one trusted place to track every bucking bull you own, train, or back. Join the waitlist.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <slot />
+
+    <!-- PostHog: analytics + waitlist source of truth -->
+    <script>
+      import posthog from "posthog-js";
+
+      const key = import.meta.env.PUBLIC_POSTHOG_KEY;
+      const apiHost =
+        import.meta.env.PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
+
+      if (key) {
+        posthog.init(key, {
+          api_host: apiHost,
+          person_profiles: "identified_only",
+          capture_pageview: false, // we fire `page_viewed` explicitly per naming convention
+        });
+        // Expose for the waitlist form scripts.
+        (window as any).posthog = posthog;
+        posthog.capture("page_viewed");
+      } else {
+        console.warn(
+          "[Buck Hub] PUBLIC_POSTHOG_KEY is not set — events will not be sent.",
+        );
+      }
+    </script>
+
+    <style is:global>
+      :root {
+        /* Brand palette — extracted from Buck Hub UI designs */
+        --pine: #2b4538;
+        --pine-mid: #3c5247;
+        --sage: #8ec398;
+        --tan: #cebc84;
+        --cream: #e4dbbd;
+        --paper: #fafaf9;
+        --ink: #181f19;
+
+        --pine-soft: rgba(43, 69, 56, 0.08);
+        --ink-muted: #4a554c;
+
+        --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino,
+          "Georgia", ui-serif, serif;
+        --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif;
+
+        --maxw: 1140px;
+        --radius: 14px;
+        --shadow: 0 1px 2px rgba(24, 31, 25, 0.06),
+          0 12px 32px rgba(24, 31, 25, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-size: 17px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-serif);
+        font-weight: 700;
+        line-height: 1.08;
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      img,
+      svg {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1;
+        padding: 0.95rem 1.5rem;
+        border-radius: 999px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          transform 0.08s ease,
+          background 0.15s ease,
+          color 0.15s ease;
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn-primary {
+        background: var(--pine);
+        color: var(--paper);
+      }
+      .btn-primary:hover {
+        background: var(--pine-mid);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--pine);
+        border-color: var(--pine);
+      }
+      .btn-ghost:hover {
+        background: var(--pine-soft);
+      }
+
+      .eyebrow {
+        display: inline-block;
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--pine-mid);
+        background: var(--cream);
+        padding: 0.4rem 0.85rem;
+        border-radius: 999px;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </body>
+</html>

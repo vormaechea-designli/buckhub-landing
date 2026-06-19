@@ -1,17 +1,432 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import WaitlistForm from "../components/WaitlistForm.astro";
+import VariantSwitcher from "../components/VariantSwitcher.astro";
 
+const year = new Date().getFullYear();
+
+const features = [
+  {
+    n: "01",
+    title: "Media that files itself",
+    body: "Snap photos and video out in the pasture, dead zone or not. It uploads the moment you're back in range and lands on the right animal on its own. Your phone stops filling up.",
+  },
+  {
+    n: "02",
+    title: "One roster you can trust",
+    body: "Every animal, its bloodline, and exactly who owns what — in one searchable place. No more cross-checking three spreadsheets before a sale or at tax time.",
+  },
+  {
+    n: "03",
+    title: "Partners stay in the loop, without the texting",
+    body: "Owners and investors see their animals' latest media and their stake whenever they want. That's hours a day you stop burning on update texts and phone calls.",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Buck Hub — No Fluff, No Bull.">
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="nav-logo" aria-label="Buck Hub home">
+        <img src="/buck-hub-mark.svg" alt="" height="40" />
+        <span class="nav-wordmark">Buck Hub</span>
+      </a>
+      <div class="nav-center">
+        <VariantSwitcher />
+      </div>
+      <a href="#waitlist" class="btn btn-primary nav-cta">Join the waitlist</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow"
+          >First cohort · Built with working ranchers, owners &amp; partners</span
+        >
+        <h1>Every bull you own, train, or back — in one place.</h1>
+        <p class="subtitle">
+          Spreadsheets, phone galleries, and a hundred texts a day is no way to
+          run an operation.
+          <em
+            >Buck Hub keeps every animal, every owner, and every video straight
+            —</em
+          > so everyone with a stake sees the same truth.
+        </p>
+        <p class="body-line">
+          Built for the pasture, not the office. Capture media in the field —
+          even with no signal — and it lands on the right animal automatically.
+        </p>
+      </div>
+
+      <div class="hero-form" id="waitlist">
+        <div class="form-card">
+          <p class="form-eyebrow">Join the waitlist</p>
+          <WaitlistForm instanceId="hero" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU'LL GET -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">What you'll get</h2>
+      <div class="feature-grid">
+        {
+          features.map((f) => (
+            <article class="feature-card">
+              <span class="feature-num">{f.n}</span>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM CTA -->
+  <section class="bottom-cta">
+    <div class="container bottom-inner">
+      <div class="bottom-copy">
+        <h2>Ready to round it all up?</h2>
+        <p>
+          Join the waitlist and be first in line when Buck Hub opens to the
+          founding cohort. No fluff, no bull — just a straighter way to run your
+          animals.
+        </p>
+      </div>
+      <div class="bottom-form">
+        <WaitlistForm instanceId="bottom" theme="dark" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <img src="/buck-hub-mark.svg" alt="Buck Hub" height="28" />
+      <p class="footer-meta">© {year} Buck Hub · A Designli project</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 250, 249, 0.85);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid rgba(24, 31, 25, 0.08);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 76px;
+  }
+  .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    height: 40px;
+    width: auto;
+  }
+  .nav-wordmark {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--pine);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .nav-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  .nav-cta {
+    padding: 0.7rem 1.15rem;
+    flex-shrink: 0;
+  }
+
+  /* ---------- HERO (shared) ---------- */
+  .hero {
+    padding: 4rem 0 5rem;
+  }
+  .hero-copy .subtitle {
+    font-size: 1.22rem;
+    color: var(--ink);
+    margin: 1.25rem 0;
+  }
+  .hero-copy .subtitle em {
+    font-style: italic;
+    color: var(--pine);
+  }
+  .hero-copy h1 {
+    font-size: clamp(2.4rem, 5.5vw, 3.7rem);
+  }
+  .hero-copy .body-line {
+    color: var(--ink-muted);
+    font-size: 1.05rem;
+    max-width: 46ch;
+  }
+  .form-card {
+    background: #fff;
+    border: 1px solid rgba(24, 31, 25, 0.08);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.75rem;
+  }
+  .form-eyebrow {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.1rem;
+  }
+
+  /* ---------- VARIANT: Center Stage (default) ---------- */
+  .hero-inner {
+    display: grid;
+    gap: 2.5rem;
+  }
+  :global(html[data-variant="center"]) .hero-inner,
+  :global(html:not([data-variant])) .hero-inner {
+    max-width: 640px;
+    text-align: center;
+    justify-items: center;
+  }
+  :global(html[data-variant="center"]) .hero-copy .body-line,
+  :global(html:not([data-variant])) .hero-copy .body-line {
+    max-width: none;
+  }
+  :global(html[data-variant="center"]) .hero-form,
+  :global(html:not([data-variant])) .hero-form {
+    width: 100%;
+    max-width: 460px;
+  }
+
+  /* ---------- VARIANT: Side by Side ---------- */
+  :global(html[data-variant="side"]) .hero-inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    text-align: left;
+  }
+
+  /* ---------- VARIANT: Split (full-viewport two-panel) ---------- */
+  :global(html[data-variant="split"]) .hero {
+    padding: 0;
+  }
+  :global(html[data-variant="split"]) .hero .container {
+    max-width: none;
+    padding: 0;
+  }
+  :global(html[data-variant="split"]) .hero-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: calc(100vh - 76px);
+    align-items: center;
+    text-align: left;
+  }
+  :global(html[data-variant="split"]) .hero-copy {
+    background: var(--pine);
+    color: var(--paper);
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem clamp(2rem, 5vw, 5rem);
+  }
+  :global(html[data-variant="split"]) .hero-copy .subtitle,
+  :global(html[data-variant="split"]) .hero-copy .body-line {
+    color: var(--cream);
+  }
+  :global(html[data-variant="split"]) .hero-copy .subtitle em {
+    color: var(--sage);
+  }
+  :global(html[data-variant="split"]) .hero-form {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem clamp(2rem, 5vw, 4rem);
+  }
+  :global(html[data-variant="split"]) .form-card {
+    width: 100%;
+    max-width: 440px;
+    border: 2px solid var(--tan);
+  }
+
+  /* ---------- FEATURES ---------- */
+  .features {
+    background: linear-gradient(180deg, transparent, var(--pine-soft));
+    padding: 4.5rem 0;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 2.25rem;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .feature-card {
+    background: #fff;
+    border: 1px solid rgba(24, 31, 25, 0.08);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+  }
+  .feature-num {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--sage);
+    background: var(--pine);
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 1rem;
+  }
+  .feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+  .feature-card p {
+    color: var(--ink-muted);
+    font-size: 0.98rem;
+  }
+
+  /* ---------- BOTTOM CTA ---------- */
+  .bottom-cta {
+    background: var(--pine);
+    color: var(--paper);
+    padding: 4.5rem 0;
+  }
+  .bottom-inner {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .bottom-copy h2 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    color: var(--paper);
+    margin-bottom: 1rem;
+  }
+  .bottom-copy p {
+    color: var(--cream);
+    font-size: 1.1rem;
+    max-width: 44ch;
+  }
+  .bottom-form {
+    width: 100%;
+    background: var(--pine-mid);
+    border: 1px solid rgba(250, 250, 249, 0.15);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem 0;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .footer-inner img {
+    height: 28px;
+    width: auto;
+    opacity: 0.9;
+  }
+  .footer-meta {
+    font-size: 0.85rem;
+    color: rgba(250, 250, 249, 0.7);
+  }
+
+  /* ---------- MOBILE: force Center Stage everywhere ---------- */
+  @media (max-width: 899px) {
+    .hero {
+      padding: 3rem 0 3.5rem !important;
+    }
+    .hero .container {
+      max-width: var(--maxw) !important;
+      padding: 0 24px !important;
+    }
+    .hero-inner {
+      grid-template-columns: 1fr !important;
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+      justify-items: center;
+    }
+    .hero-copy {
+      background: transparent !important;
+      color: var(--ink) !important;
+      padding: 0 !important;
+    }
+    .hero-copy .subtitle,
+    .hero-copy .body-line {
+      color: var(--ink) !important;
+    }
+    .hero-copy .subtitle em {
+      color: var(--pine) !important;
+    }
+    .hero-form {
+      width: 100% !important;
+      max-width: 460px !important;
+      padding: 0 !important;
+    }
+    .form-card {
+      border-width: 1px !important;
+      border-color: rgba(24, 31, 25, 0.08) !important;
+    }
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+    .bottom-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .nav-inner {
+      height: 64px;
+    }
+    .nav-logo img {
+      height: 32px;
+    }
+    .nav-wordmark {
+      font-size: 1.2rem;
+    }
+    .nav-cta {
+      padding: 0.6rem 0.9rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .footer-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
