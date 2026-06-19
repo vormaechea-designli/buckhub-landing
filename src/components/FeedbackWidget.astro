@@ -1,0 +1,280 @@
+---
+// Fixed feedback button + panel. Ships on every page (mounted in Layout.astro).
+---
+
+<div class="fw" data-feedback-widget>
+  <button class="fw-toggle" type="button" data-fw-open aria-haspopup="dialog">
+    <span aria-hidden="true">💬</span> Feedback
+  </button>
+
+  <div class="fw-panel" data-fw-panel hidden role="dialog" aria-label="Send feedback">
+    <div class="fw-head">
+      <p class="fw-title">Send feedback</p>
+      <button class="fw-close" type="button" data-fw-close aria-label="Close">✕</button>
+    </div>
+
+    <form class="fw-form" data-fw-form>
+      <div class="fw-types" role="radiogroup" aria-label="Feedback type">
+        <label class="fw-type">
+          <input type="radio" name="type" value="Suggestion" checked />
+          <span>Suggestion</span>
+        </label>
+        <label class="fw-type">
+          <input type="radio" name="type" value="Bug" />
+          <span>Bug</span>
+        </label>
+        <label class="fw-type">
+          <input type="radio" name="type" value="Question" />
+          <span>Question</span>
+        </label>
+      </div>
+
+      <label class="fw-label" for="fw-email">Email <span class="fw-opt">(optional)</span></label>
+      <input id="fw-email" name="email" type="email" placeholder="you@ranch.com" autocomplete="email" />
+
+      <label class="fw-label" for="fw-message">Message</label>
+      <textarea id="fw-message" name="message" rows="4" placeholder="What's on your mind?" required></textarea>
+
+      <button type="submit" class="btn btn-primary fw-submit">Send</button>
+      <p class="fw-error" data-fw-error hidden role="alert"></p>
+    </form>
+
+    <div class="fw-success" data-fw-success hidden>
+      <div class="fw-check" aria-hidden="true">✓</div>
+      <p>Thanks — we got it.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .fw {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 100;
+    font-family: var(--font-sans);
+  }
+  .fw-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: var(--pine);
+    color: var(--paper);
+    border: none;
+    border-radius: 999px;
+    padding: 0.7rem 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(24, 31, 25, 0.25);
+    transition: background 0.15s ease, transform 0.08s ease;
+  }
+  .fw-toggle:hover {
+    background: var(--pine-mid);
+  }
+  .fw-toggle:active {
+    transform: translateY(1px);
+  }
+
+  .fw-panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 12px);
+    width: min(340px, calc(100vw - 40px));
+    background: #fff;
+    border: 1px solid rgba(24, 31, 25, 0.1);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 1.25rem;
+  }
+  .fw-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.9rem;
+  }
+  .fw-title {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .fw-close {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: var(--ink-muted);
+    cursor: pointer;
+    padding: 0.25rem;
+    line-height: 1;
+  }
+
+  .fw-types {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+  }
+  .fw-type {
+    flex: 1;
+  }
+  .fw-type input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .fw-type span {
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    padding: 0.5rem 0.25rem;
+    border: 1.5px solid #d9d6cd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.12s ease;
+  }
+  .fw-type input:checked + span {
+    border-color: var(--pine);
+    background: var(--pine-soft);
+    color: var(--pine);
+  }
+  .fw-type input:focus-visible + span {
+    outline: 2px solid var(--pine);
+    outline-offset: 1px;
+  }
+
+  .fw-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+  .fw-opt {
+    font-weight: 400;
+    color: var(--ink-muted);
+  }
+  .fw-form input,
+  .fw-form textarea {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    padding: 0.6rem 0.75rem;
+    border: 1.5px solid #d9d6cd;
+    border-radius: 8px;
+    margin-bottom: 0.9rem;
+    resize: vertical;
+  }
+  .fw-form input:focus,
+  .fw-form textarea:focus {
+    outline: none;
+    border-color: var(--pine);
+    box-shadow: 0 0 0 3px var(--pine-soft);
+  }
+  .fw-submit {
+    width: 100%;
+  }
+  .fw-error {
+    color: #b3261e;
+    font-size: 0.85rem;
+    margin-top: 0.6rem;
+  }
+
+  .fw-success {
+    text-align: center;
+    padding: 1.5rem 0.5rem;
+  }
+  .fw-check {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 0.75rem;
+    border-radius: 999px;
+    background: var(--sage);
+    color: var(--pine);
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+  }
+  .fw-success p {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  const widget = document.querySelector<HTMLElement>("[data-feedback-widget]");
+  if (widget) {
+    const panel = widget.querySelector<HTMLElement>("[data-fw-panel]")!;
+    const form = widget.querySelector<HTMLFormElement>("[data-fw-form]")!;
+    const successEl = widget.querySelector<HTMLElement>("[data-fw-success]")!;
+    const errorEl = widget.querySelector<HTMLElement>("[data-fw-error]")!;
+    const openBtn = widget.querySelector<HTMLButtonElement>("[data-fw-open]")!;
+    const closeBtn = widget.querySelector<HTMLButtonElement>("[data-fw-close]")!;
+
+    const open = () => {
+      panel.hidden = false;
+      widget.querySelector<HTMLTextAreaElement>("#fw-message")?.focus();
+    };
+    const close = () => {
+      panel.hidden = true;
+    };
+
+    openBtn.addEventListener("click", () =>
+      panel.hidden ? open() : close(),
+    );
+    closeBtn.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.hidden) close();
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.hidden = true;
+
+      const data = new FormData(form);
+      const type = String(data.get("type") || "Suggestion");
+      const email = String(data.get("email") || "").trim();
+      const message = String(data.get("message") || "").trim();
+      const url = window.location.href; // full URL incl. query params (breadcrumb)
+
+      if (!message) {
+        errorEl.textContent = "Please enter a message.";
+        errorEl.hidden = false;
+        return;
+      }
+
+      const submitBtn = form.querySelector<HTMLButtonElement>(".fw-submit")!;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending…";
+
+      // Durable backstop: record in PostHog regardless of GitHub/Slack config.
+      try {
+        (window as any).posthog?.capture("feedback_submitted", {
+          feedback_type: type,
+          page_url: url,
+          has_email: Boolean(email),
+        });
+      } catch {
+        /* ignore */
+      }
+
+      try {
+        const res = await fetch("/api/feedback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type, email, message, url }),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        form.hidden = true;
+        successEl.hidden = false;
+        setTimeout(close, 2200);
+      } catch (err) {
+        errorEl.textContent = "Couldn't send right now. Please try again.";
+        errorEl.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send";
+      }
+    });
+  }
+</script>
