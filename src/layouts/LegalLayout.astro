@@ -1,0 +1,170 @@
+---
+import Layout from "./Layout.astro";
+import { PENDING } from "../data/legal.ts";
+
+interface Props {
+  title: string;
+  heading: string;
+  effectiveDate: string;
+}
+const { title, heading, effectiveDate } = Astro.props;
+---
+
+<Layout title={title}>
+  <header class="legal-nav">
+    <div class="container legal-nav-inner">
+      <a href="/" class="nav-logo" aria-label="Buck Hub home">
+        <img src="/buck-hub-mark.svg" alt="" height="36" />
+        <span class="nav-wordmark">Buck Hub</span>
+      </a>
+      <a href="/" class="btn btn-ghost legal-back">← Back to home</a>
+    </div>
+  </header>
+
+  <main class="legal container">
+    {
+      PENDING && (
+        <div class="draft-notice" role="note">
+          <strong>Draft — pending final details.</strong> Company legal name,
+          contact email, and registered address are placeholders awaiting client
+          confirmation. Do not treat this as the final published policy.
+        </div>
+      )
+    }
+    <h1>{heading}</h1>
+    <p class="effective">Effective as of {effectiveDate}</p>
+    <div class="legal-body">
+      <slot />
+    </div>
+  </main>
+
+  <footer class="legal-footer">
+    <div class="container footer-inner">
+      <img src="/buck-hub-mark.svg" alt="Buck Hub" height="24" />
+      <nav class="footer-links">
+        <a href="/">Home</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .legal-nav {
+    border-bottom: 1px solid rgba(24, 31, 25, 0.08);
+    background: var(--paper);
+  }
+  .legal-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: 1rem;
+  }
+  .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+  }
+  .nav-wordmark {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--pine);
+    white-space: nowrap;
+  }
+  .legal-back {
+    padding: 0.55rem 1rem;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .legal {
+    padding: 3rem 24px 4rem;
+    max-width: 760px;
+  }
+  .draft-notice {
+    background: var(--cream);
+    border: 1px solid var(--tan);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .legal h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin-bottom: 0.5rem;
+  }
+  .effective {
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Prose */
+  .legal-body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 2.25rem 0 0.75rem;
+    line-height: 1.2;
+  }
+  .legal-body :global(p) {
+    margin: 0 0 1rem;
+    color: var(--ink);
+  }
+  .legal-body :global(ul) {
+    margin: 0 0 1.25rem;
+    padding-left: 1.25rem;
+  }
+  .legal-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+  .legal-body :global(a) {
+    color: var(--pine);
+    text-decoration: underline;
+  }
+  .legal-body :global(.pending) {
+    background: #fbe6c8;
+    border-bottom: 2px dotted var(--tan);
+    padding: 0 0.2em;
+    font-style: normal;
+  }
+
+  .legal-footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1.75rem 0;
+  }
+  .legal-footer .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .legal-footer img {
+    height: 24px;
+    opacity: 0.9;
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+  }
+  .footer-links a {
+    color: rgba(250, 250, 249, 0.8);
+    text-decoration: none;
+  }
+  .footer-links a:hover {
+    color: var(--paper);
+  }
+
+  @media (max-width: 520px) {
+    .legal-footer .footer-inner {
+      flex-direction: column;
+    }
+  }
+</style>

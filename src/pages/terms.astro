@@ -1,0 +1,163 @@
+---
+import LegalLayout from "../layouts/LegalLayout.astro";
+import {
+  PRODUCT_NAME,
+  COMPANY_NAME,
+  CONTACT_EMAIL,
+  EFFECTIVE_DATE,
+  AGE_OF_CONSENT,
+  THIRD_PARTY_TERMS,
+} from "../data/legal.ts";
+---
+
+<LegalLayout
+  title={`Terms & Conditions — ${PRODUCT_NAME}`}
+  heading="Terms & Conditions"
+  effectiveDate={EFFECTIVE_DATE}
+>
+  <p>
+    These terms and conditions apply to the {PRODUCT_NAME} application and any
+    related services operated by {COMPANY_NAME} (collectively, the "Application").
+    {COMPANY_NAME} is hereby referred to as the "Service Provider".
+  </p>
+  <p>
+    By accessing or using the Application, you agree to these Terms and
+    Conditions. You should read them carefully before using the Application.
+  </p>
+
+  <h2>License to use the Application</h2>
+  <p>
+    Subject to your compliance with these Terms, the Service Provider grants you
+    a limited, non-exclusive, non-transferable, revocable license to access and
+    use the Application for personal or internal business purposes. You may not
+    reproduce, distribute, modify, create derivative works from, reverse
+    engineer, decompile, or disassemble the Application, except as and only to
+    the extent expressly permitted by applicable law.
+  </p>
+
+  <h2>Intellectual Property</h2>
+  <p>
+    The Service Provider retains all intellectual property rights in the
+    Application, including its code, design, trademarks, service marks, trade
+    names, logos, and branding (the "IP"). Nothing in these Terms grants you any
+    license or right to use the Service Provider's trademarks, logos, or branding
+    for any purpose.
+  </p>
+
+  <h2>Termination</h2>
+  <p>
+    The Service Provider may suspend your access to the Application or services
+    if you materially breach these Terms. The Service Provider will provide you
+    with written notice of the breach and, where the breach is capable of cure,
+    you will have 14 days from receipt of notice to remedy it.
+  </p>
+  <p>
+    The Service Provider may suspend or terminate your access immediately without
+    notice if you violate applicable law, infringe intellectual property rights,
+    or engage in activity that could cause harm to other users or the Service
+    Provider. Upon termination, your right to use the Application will end.
+  </p>
+  <p>
+    By accessing and using this Application, you represent that you are legally
+    permitted to use it in your jurisdiction. You must be at least {AGE_OF_CONSENT}
+    years of age to use the Application.
+  </p>
+
+  <h2>Third-party services</h2>
+  <p>
+    The Application utilizes third-party services that have their own Terms and
+    Conditions. Below are the links to the Terms and Conditions of the
+    third-party service providers used by the Application:
+  </p>
+  <ul>
+    {
+      THIRD_PARTY_TERMS.map((s) => (
+        <li>
+          <a href={s.url} target="_blank" rel="noopener noreferrer">
+            {s.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <p>
+    The Service Provider does not assume responsibility if the Application does
+    not function at full capacity due to lack of internet access. Nothing in
+    these Terms shall limit any rights you have under applicable consumer
+    protection laws that cannot be lawfully excluded.
+  </p>
+
+  <h2>Limitation of Liability</h2>
+  <p>
+    To the fullest extent permitted by law, the Service Provider shall not be
+    liable for any indirect, incidental, special, consequential, or punitive
+    damages, including but not limited to lost profits, data loss, or business
+    interruption.
+  </p>
+  <p>However, the Service Provider retains full liability for:</p>
+  <ul>
+    <li>Death or personal injury caused by negligence</li>
+    <li>Fraud or fraudulent misrepresentation</li>
+    <li>Any other liability that cannot be excluded or limited under applicable law</li>
+  </ul>
+  <p>
+    To the fullest extent permitted by law, the total liability of the Service
+    Provider for any claim shall not exceed the amount paid by you in the 12
+    months preceding the claim, or the minimum amount permitted by applicable
+    law, whichever is greater.
+  </p>
+
+  <h2>Indemnification</h2>
+  <p>
+    To the fullest extent permitted by law, you agree to indemnify and hold
+    harmless the Service Provider from any claims, liabilities, damages, losses
+    and expenses arising out of your breach of these Terms or your intentional
+    misuse of the Application. This indemnification does not apply to claims
+    arising from the Service Provider's own negligence, breach of these Terms, or
+    violation of applicable law.
+  </p>
+
+  <h2>Updates to the Application</h2>
+  <p>
+    The Service Provider may update the Application at any point. The Service
+    Provider does not guarantee that it will always update the Application so
+    that it is relevant to you and/or compatible with your device. The Service
+    Provider may also cease providing the Application and may terminate its use
+    at any time.
+  </p>
+
+  <h2>Governing Law and Jurisdiction</h2>
+  <p>
+    These Terms and Conditions are governed by the laws of the jurisdiction in
+    which the Service Provider is established, excluding conflict of law rules,
+    except to the extent mandatory consumer protection laws provide otherwise.
+  </p>
+
+  <h2>Severability</h2>
+  <p>
+    If any provision of these Terms is held invalid or unenforceable, it shall be
+    modified to the minimum extent necessary, and the remaining provisions shall
+    remain in full force and effect.
+  </p>
+
+  <h2>Entire Agreement</h2>
+  <p>
+    These Terms and Conditions, together with the Privacy Policy, constitute the
+    entire agreement between you and the Service Provider concerning your use of
+    the Application.
+  </p>
+
+  <h2>Changes to These Terms and Conditions</h2>
+  <p>
+    The Service Provider may periodically update these Terms and Conditions. You
+    are advised to review this page regularly for any changes. Previous versions
+    will be made available upon request at {CONTACT_EMAIL}. These terms and
+    conditions are effective as of {EFFECTIVE_DATE}.
+  </p>
+
+  <h2>Contact Us</h2>
+  <p>
+    If you have any questions or suggestions about these Terms and Conditions,
+    please contact the Service Provider at {CONTACT_EMAIL}.
+  </p>
+</LegalLayout>

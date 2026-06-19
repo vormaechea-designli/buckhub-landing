@@ -109,6 +109,10 @@ const features = [
   <footer class="footer">
     <div class="container footer-inner">
       <img src="/buck-hub-mark.svg" alt="Buck Hub" height="28" />
+      <nav class="footer-links">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
       <p class="footer-meta">© {year} Buck Hub · A Designli project</p>
     </div>
   </footer>
@@ -355,6 +359,18 @@ const features = [
     height: 28px;
     width: auto;
     opacity: 0.9;
+  }
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+  }
+  .footer-links a {
+    color: rgba(250, 250, 249, 0.8);
+    text-decoration: none;
+  }
+  .footer-links a:hover {
+    color: var(--paper);
   }
   .footer-meta {
     font-size: 0.85rem;
