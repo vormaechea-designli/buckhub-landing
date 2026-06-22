@@ -28,9 +28,13 @@ pnpm-debug.log*
 .claude/settings.local.json
 
 # Local product reference material — kept on disk, not part of the landing page repo.
-# (PRD, personas, full-app UI mockups, design PDFs, source logos — ~250MB total.)
+# (PRD, personas, full-app UI mockups, design PDFs, source logos, backlogs, notes.)
 /*.docx
+/*.xlsx
+/*.csv
+/~$*
 /PRD.md
 /UI/
 /UI - Updated design/
 /Logo/
+/Documentation Lab/
