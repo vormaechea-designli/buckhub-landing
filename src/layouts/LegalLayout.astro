@@ -14,8 +14,7 @@ const { title, heading, effectiveDate } = Astro.props;
   <header class="legal-nav">
     <div class="container legal-nav-inner">
       <a href="/" class="nav-logo" aria-label="Buck Hub home">
-        <img src="/buck-hub-mark.svg" alt="" height="36" />
-        <span class="nav-wordmark">Buck Hub</span>
+        <img src="/buck-hub-logo.webp" alt="Buck Hub" width="73" height="44" />
       </a>
       <a href="/" class="btn btn-ghost legal-back">← Back to home</a>
     </div>
@@ -65,15 +64,11 @@ const { title, heading, effectiveDate } = Astro.props;
   .nav-logo {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
     text-decoration: none;
   }
-  .nav-wordmark {
-    font-family: var(--font-serif);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--pine);
-    white-space: nowrap;
+  .nav-logo img {
+    height: 44px;
+    width: auto;
   }
   .legal-back {
     padding: 0.55rem 1rem;
