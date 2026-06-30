@@ -290,6 +290,9 @@ const features = [
     max-width: 460px;
   }
 
+  /* Side/Split layouts are desktop-only — gate them so they never override
+     the mobile centering below. */
+  @media (min-width: 900px) {
   /* ---------- VARIANT: Side by Side ---------- */
   :global(html[data-variant="side"]) .hero-inner {
     grid-template-columns: 1.1fr 0.9fr;
@@ -339,6 +342,7 @@ const features = [
     width: 100%;
     max-width: 440px;
     border: 2px solid var(--tan);
+  }
   }
 
   /* ---------- SHOWCASE ---------- */
