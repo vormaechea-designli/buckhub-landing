@@ -1,5 +1,6 @@
 ---
 import "@fontsource-variable/inter";
+import "@fontsource-variable/lora";
 import FeedbackWidget from "../components/FeedbackWidget.astro";
 
 interface Props {
@@ -68,10 +69,20 @@ const {
         --pine-soft: rgba(43, 69, 56, 0.08);
         --ink-muted: #4a554c;
 
-        --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino,
-          "Georgia", ui-serif, serif;
+        --font-serif: "Lora Variable", "Iowan Old Style", "Palatino Linotype",
+          Palatino, "Georgia", ui-serif, serif;
         --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
           "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+        /* Type scale — one source of truth so like-elements match everywhere */
+        --fs-eyebrow: 0.8rem; /* uppercase pills/labels */
+        --fs-small: 0.9rem; /* captions, fineprint, footer, secondary */
+        --fs-label: 0.85rem; /* form field labels */
+        --fs-body: 1.0625rem; /* base body text (17px) */
+        --fs-intro: 1.18rem; /* lead + supporting/section intro paragraphs */
+        --fs-card-title: 1.3rem; /* card & panel titles */
+        --fs-section: clamp(2rem, 4vw, 2.6rem); /* section headings (h2) */
+        --fs-display: clamp(2.4rem, 5.5vw, 3.7rem); /* hero headline (h1) */
 
         --maxw: 1140px;
         --radius: 14px;
@@ -170,7 +181,7 @@ const {
       .eyebrow {
         display: inline-block;
         font-family: var(--font-sans);
-        font-size: 0.8rem;
+        font-size: var(--fs-eyebrow);
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;

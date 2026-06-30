@@ -233,13 +233,13 @@ const features = [
     padding: 4rem 0 5rem;
   }
   .hero-copy .lead {
-    font-size: 1.15rem;
+    font-size: var(--fs-intro);
     font-weight: 600;
     color: var(--pine);
     margin: 1.1rem 0 0;
   }
   .hero-copy .subtitle {
-    font-size: 1.22rem;
+    font-size: var(--fs-intro);
     color: var(--ink);
     margin: 1.25rem 0;
   }
@@ -248,7 +248,7 @@ const features = [
     color: var(--pine);
   }
   .hero-copy h1 {
-    font-size: clamp(2.4rem, 5.5vw, 3.7rem);
+    font-size: var(--fs-display);
   }
   .hero-copy .body-line {
     color: var(--ink-muted);
@@ -264,7 +264,7 @@ const features = [
   }
   .form-eyebrow {
     font-family: var(--font-serif);
-    font-size: 1.3rem;
+    font-size: var(--fs-card-title);
     font-weight: 700;
     margin-bottom: 1.1rem;
   }
@@ -353,6 +353,7 @@ const features = [
   .showcase-sub {
     text-align: center;
     color: var(--ink-muted);
+    font-size: var(--fs-intro);
     max-width: 50ch;
     margin: 0 auto 3rem;
   }
@@ -414,7 +415,7 @@ const features = [
   }
   .platforms-caption {
     color: var(--ink-muted);
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     font-weight: 600;
     margin-bottom: 0.9rem;
   }
@@ -465,7 +466,7 @@ const features = [
     padding: 4.5rem 0;
   }
   .section-title {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-size: var(--fs-section);
     margin-bottom: 2.25rem;
   }
   .feature-grid {
@@ -494,12 +495,12 @@ const features = [
     margin-bottom: 1rem;
   }
   .feature-card h3 {
-    font-size: 1.3rem;
+    font-size: var(--fs-card-title);
     margin-bottom: 0.6rem;
   }
   .feature-card p {
     color: var(--ink-muted);
-    font-size: 0.98rem;
+    font-size: var(--fs-body);
   }
 
   /* ---------- BOTTOM CTA ---------- */
@@ -515,13 +516,13 @@ const features = [
     align-items: center;
   }
   .bottom-copy h2 {
-    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-size: var(--fs-section);
     color: var(--paper);
     margin-bottom: 1rem;
   }
   .bottom-copy p {
     color: var(--cream);
-    font-size: 1.1rem;
+    font-size: var(--fs-intro);
     max-width: 44ch;
   }
   .bottom-form {
@@ -552,7 +553,7 @@ const features = [
   .footer-links {
     display: flex;
     gap: 1.5rem;
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
   }
   .footer-links a {
     color: rgba(250, 250, 249, 0.8);
@@ -562,7 +563,7 @@ const features = [
     color: var(--paper);
   }
   .footer-meta {
-    font-size: 0.85rem;
+    font-size: var(--fs-small);
     color: rgba(250, 250, 249, 0.7);
   }
 
