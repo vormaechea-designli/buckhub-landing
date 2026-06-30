@@ -364,7 +364,9 @@ const features = [
     align-items: flex-end;
   }
   .browser {
-    width: min(720px, 100%);
+    flex: 0 1 auto;
+    width: min(720px, 64vw);
+    min-width: 0;
     background: #fff;
     border: 1px solid rgba(24, 31, 25, 0.1);
     border-radius: 14px;
@@ -393,8 +395,8 @@ const features = [
   }
   .phone {
     flex: 0 0 auto;
-    width: 208px;
-    margin-left: -64px;
+    width: clamp(150px, 17vw, 208px);
+    margin-left: clamp(-64px, -5vw, -40px);
     margin-bottom: -18px;
     background: var(--ink);
     border-radius: 32px;
