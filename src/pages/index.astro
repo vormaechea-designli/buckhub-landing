@@ -250,11 +250,6 @@ const features = [
   .hero-copy h1 {
     font-size: var(--fs-display);
   }
-  .hero-copy .body-line {
-    color: var(--ink-muted);
-    font-size: 1.05rem;
-    max-width: 46ch;
-  }
   .form-card {
     background: #fff;
     border: 1px solid rgba(24, 31, 25, 0.08);
@@ -279,10 +274,6 @@ const features = [
     max-width: 640px;
     text-align: center;
     justify-items: center;
-  }
-  :global(html[data-variant="center"]) .hero-copy .body-line,
-  :global(html:not([data-variant])) .hero-copy .body-line {
-    max-width: none;
   }
   :global(html[data-variant="center"]) .hero-form,
   :global(html:not([data-variant])) .hero-form {
@@ -324,8 +315,7 @@ const features = [
     justify-content: center;
     padding: 4rem clamp(2rem, 5vw, 5rem);
   }
-  :global(html[data-variant="split"]) .hero-copy .subtitle,
-  :global(html[data-variant="split"]) .hero-copy .body-line {
+  :global(html[data-variant="split"]) .hero-copy .subtitle {
     color: var(--cream);
   }
   :global(html[data-variant="split"]) .hero-copy .subtitle em {
@@ -594,8 +584,7 @@ const features = [
       color: var(--ink) !important;
       padding: 0 !important;
     }
-    .hero-copy .subtitle,
-    .hero-copy .body-line {
+    .hero-copy .subtitle {
       color: var(--ink) !important;
     }
     .hero-copy .subtitle em {
