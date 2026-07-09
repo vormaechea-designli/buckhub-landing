@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import WaitlistForm from "../components/WaitlistForm.astro";
-import VariantSwitcher from "../components/VariantSwitcher.astro";
 
 const year = new Date().getFullYear();
 
@@ -41,9 +40,6 @@ const features = [
           height="46"
         />
       </a>
-      <div class="nav-center">
-        <VariantSwitcher />
-      </div>
       <a href="#waitlist" class="btn btn-primary nav-cta">Join the waitlist</a>
     </div>
   </header>
@@ -218,11 +214,6 @@ const features = [
     height: 52px;
     width: auto;
   }
-  .nav-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
   .nav-cta {
     padding: 0.7rem 1.15rem;
     flex-shrink: 0;
@@ -264,75 +255,17 @@ const features = [
     margin-bottom: 1.1rem;
   }
 
-  /* ---------- VARIANT: Center Stage (default) ---------- */
+  /* ---------- HERO LAYOUT: Side by Side (copy left, form right) ---------- */
   .hero-inner {
     display: grid;
     gap: 2.5rem;
   }
-  :global(html[data-variant="center"]) .hero-inner,
-  :global(html:not([data-variant])) .hero-inner {
-    max-width: 640px;
-    text-align: center;
-    justify-items: center;
-  }
-  :global(html[data-variant="center"]) .hero-form,
-  :global(html:not([data-variant])) .hero-form {
-    width: 100%;
-    max-width: 460px;
-  }
-
-  /* Side/Split layouts are desktop-only — gate them so they never override
-     the mobile centering below. */
   @media (min-width: 900px) {
-  /* ---------- VARIANT: Side by Side ---------- */
-  :global(html[data-variant="side"]) .hero-inner {
-    grid-template-columns: 1.1fr 0.9fr;
-    align-items: center;
-    text-align: left;
-  }
-
-  /* ---------- VARIANT: Split (full-viewport two-panel) ---------- */
-  :global(html[data-variant="split"]) .hero {
-    padding: 0;
-  }
-  :global(html[data-variant="split"]) .hero .container {
-    max-width: none;
-    padding: 0;
-  }
-  :global(html[data-variant="split"]) .hero-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    min-height: calc(100vh - 76px);
-    align-items: center;
-    text-align: left;
-  }
-  :global(html[data-variant="split"]) .hero-copy {
-    background: var(--pine);
-    color: var(--paper);
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 4rem clamp(2rem, 5vw, 5rem);
-  }
-  :global(html[data-variant="split"]) .hero-copy .subtitle {
-    color: var(--cream);
-  }
-  :global(html[data-variant="split"]) .hero-copy .subtitle em {
-    color: var(--sage);
-  }
-  :global(html[data-variant="split"]) .hero-form {
-    align-self: stretch;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem clamp(2rem, 5vw, 4rem);
-  }
-  :global(html[data-variant="split"]) .form-card {
-    width: 100%;
-    max-width: 440px;
-    border: 2px solid var(--tan);
-  }
+    .hero-inner {
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      text-align: left;
+    }
   }
 
   /* ---------- SHOWCASE ---------- */
