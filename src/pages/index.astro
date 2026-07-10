@@ -72,6 +72,54 @@ const features = [
     </div>
   </section>
 
+  <!-- MEDIA SPOTLIGHT -->
+  <section class="media-spot">
+    <div class="container">
+      <h2 class="section-title showcase-title">
+        Every photo and video, on the right animal
+      </h2>
+      <p class="showcase-sub">
+        Media is where Buck Hub earns its keep. Capture it in the field and the
+        app files it, frees up your phone, and shares it — no wrangling.
+      </p>
+      <div class="devices">
+        <div class="browser">
+          <div class="browser-bar" aria-hidden="true">
+            <span class="bdot"></span><span class="bdot"></span><span class="bdot"
+            ></span>
+          </div>
+          <img
+            src="/buckhub-media-desktop.webp"
+            alt="Buck Hub media gallery on desktop"
+            width="2880"
+            height="2030"
+            loading="lazy"
+          />
+        </div>
+        <div class="phone">
+          <img
+            src="/buckhub-media-phone.webp"
+            alt="Buck Hub media gallery on a phone"
+            width="780"
+            height="1625"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <ul class="media-points">
+        <li>
+          Capture in the field — even with no signal. It uploads the moment
+          you're back in range.
+        </li>
+        <li>
+          Every photo and video files itself to the right animal — tagged and
+          searchable.
+        </li>
+        <li>Off your phone, and shared with your partners in a tap.</li>
+      </ul>
+    </div>
+  </section>
+
   <!-- SHOWCASE -->
   <section class="showcase">
     <div class="container">
@@ -269,6 +317,42 @@ const features = [
   }
 
   /* ---------- SHOWCASE ---------- */
+  .media-spot {
+    padding: 4.5rem 0 4rem;
+    background: var(--paper);
+  }
+  .media-points {
+    list-style: none;
+    padding: 0;
+    margin: 2.75rem auto 0;
+    max-width: 880px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem 1.75rem;
+  }
+  .media-points li {
+    position: relative;
+    padding-left: 1.9rem;
+    font-size: var(--fs-body);
+    color: var(--ink-muted);
+    text-align: left;
+  }
+  .media-points li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: grid;
+    place-items: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--pine);
+    background: var(--sage);
+    border-radius: 999px;
+  }
+
   .showcase {
     padding: 4.5rem 0 5rem;
     background: linear-gradient(180deg, var(--paper), #eef1ec);
