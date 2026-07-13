@@ -633,14 +633,14 @@ const features = [
       flex-direction: column;
       align-items: center;
     }
+    /* On phones, show just the phone view — a full desktop UI shrunk to phone
+       width is illegible. */
     .browser {
-      width: 100%;
+      display: none;
     }
     .phone {
-      margin-left: 0;
-      margin-bottom: 0;
-      margin-top: -28px;
-      width: 172px;
+      margin: 0;
+      width: min(250px, 62vw);
     }
   }
 
